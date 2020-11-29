@@ -12,4 +12,12 @@ public class SpringCloudGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringCloudGatewayApplication.class, args);
     }
+
+
+    @Bean
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
+        return builder.routes()
+                .route("path_route",r -> r.path("/about").uri("http://www.ityouknow.com"))
+                .build();
+    }
 }
