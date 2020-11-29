@@ -1,13 +1,39 @@
 server:
   port: 8080
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: neo_route
-#          uri: http://www.ityouknow.com
-#          predicates:
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: neo_route
+          uri: http://www.ityouknow.com
+          predicates:
 #            - Path=/spring-cloud
+            #请求时间在 2018年1月20日6点6分6秒之后的所有请求都转发到地址http://ityouknow.com，之前的对应Before
+            # 限制路由请求在某一个时间段范围内，可以使用 Between Route Predicate 来实现
+#             - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
+            #通过 Cookie 匹配：一个是 Cookie name ,一个是正则表达式
+#             - Cookie=ityouknow, kee.e
+            #一个 header 中属性名称和一个正则表达式
+#             - Header=X-Request-Id, \d+
+             # 通过 Host 匹配
+#             - Host=**.ityouknow.com
+             #通过请求方式匹配： POST、GET、PUT、DELETE
+#             - Method=GET
+             #通过请求路径匹配：接收一个匹配路径的参数来判断是否走路由
+#             - Path=/foo/{segment}
+             #通过请求参数匹配：入两个参数，一个是属性名一个为属性值，属性值可以是正则表达式
+#             - Query=smile
+             #通过请求 ip 地址进行匹配
+#             - RemoteAddr=192.168.1.1/24
+             # 组合使用：Predicates 同时存在于同一个路由时，请求必须同时满足所有的条件才被这个路由匹配
+             - Host=**.foo.org
+             - Path=/headers
+             - Method=GET
+             - Header=X-Request-Id, \d+
+             - Query=foo, ba.
+             - Query=baz
+             - Cookie=chocolate, ch.p
+             - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]
 #  id：我们自定义的路由 ID，保持唯一
 #  uri：目标服务地址
 #  predicates：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。

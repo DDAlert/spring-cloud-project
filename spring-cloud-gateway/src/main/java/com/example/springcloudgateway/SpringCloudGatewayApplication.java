@@ -14,10 +14,10 @@ public class SpringCloudGatewayApplication {
     }
 
 
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
-        return builder.routes()
-                .route("path_route",r -> r.path("/about").uri("http://www.ityouknow.com"))
-                .build();
-    }
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
+//        return builder.routes()
+//                .route("path_route",r -> r.path("/about").uri("http://www.ityouknow.com"))
+//                .build();
+//    }
 }
